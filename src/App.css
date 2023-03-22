@@ -54,5 +54,22 @@ body {
 }
 
 #itemlostlists-item-lostsince {
-  
+
+}
+
+.header-login-btn {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 13px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.header-login-btn:hover {
+  background-color: rgb(111, 136, 170);
+}
+
+.header-login-btn:active {
+  background-color: rgb(62, 77, 96);
 }
