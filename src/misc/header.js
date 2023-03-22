@@ -9,9 +9,13 @@ function Header() {
     })
 
     return (
-        <div className="Header">
-            <img className='headerlogo' src={headerlogo} />
-        </div>
+        <span>
+            <div className="Header">
+                <img className='headerlogo' src={headerlogo} />
+            </div>
+            <br />
+            <br />
+        </span>
     )
 }
 
