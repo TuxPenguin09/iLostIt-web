@@ -73,3 +73,14 @@ body {
 .header-login-btn:active {
   background-color: rgb(62, 77, 96);
 }
+
+.LoginWindow {
+  background-color: #5d7493;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+  width: 270px;
+  height: 280px;
+  padding: 12px;
+}
