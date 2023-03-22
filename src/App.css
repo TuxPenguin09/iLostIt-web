@@ -4,6 +4,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.App-body {
+  padding: 15px;
+}
+
 .Header {
   background-color: rgb(92, 117, 147);
   color: white;
@@ -83,4 +87,19 @@ body {
   width: 270px;
   height: 280px;
   padding: 12px;
+}
+
+input {
+  text-decoration: none;
+  font-size: 13px;
+  width: 100%;
+  border: none;
+  padding: 3px;
+}
+
+button {
+  width: 100%;
+  padding: 3px;
+  border: none;
+  border-radius: 4px;
 }

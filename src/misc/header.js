@@ -23,8 +23,13 @@ function Header() {
                 }} onClick={() => {setLoginWindow(false)}}>X</div>
                 <h2>Login</h2>
                 <input type="text" placeholder="Username" /><br />
+                <br />
                 <input type="text" placeholder="Password" /><br />
-                <button>Login</button><br />
+                <br />
+                <button style={{
+                    backgroundColor: "rgb(103 255 95)",
+                }}>Login</button><br />
+                <br />
                 <sub>Don't have an account? Register here!</sub>
             </div> : null}
             <div className="Header">

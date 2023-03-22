@@ -8,9 +8,9 @@ function gridsoflost(lostItems) {
       <div id="itemlostlists-item" key={item.id}>
         <img id="itemlostlists-item-image" src={item.image} />
         <div style={{
-              position: "absolute",
-              marginTop: "311px",
-              marginLeft: "10px",
+          position: "absolute",
+          marginTop: "311px",
+          marginLeft: "10px",
         }}>
           <span id="itemlostlists-item-title">{item.item_name}</span><br />
           <span style={{
@@ -44,8 +44,10 @@ function App() {
   return (
     <div className="App">
       {Header()}
-      <h2>Lost Items</h2>
-      {gridsoflost(lostItems)}
+      <div className='App-body'>
+        <h2>Lost Items</h2>
+        {gridsoflost(lostItems)}
+      </div>
     </div>
   );
 }
