@@ -2,3 +2,11 @@ body {
   background-color: rgb(68, 87, 110);
   color: white;
 }
+
+.Header {
+  background-color: rgb(92, 117, 147);
+  color: white;
+  width: 100%;
+  height: 45px;
+  position: fixed;
+}
