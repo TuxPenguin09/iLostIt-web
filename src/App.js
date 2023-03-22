@@ -39,6 +39,27 @@ function App() {
       founder: `null`,
       lost_since: '2023-01-01',
       image: '',
+    },
+    {
+      id: 1,
+      item_name: `null`,
+      founder: `null`,
+      lost_since: '2023-01-01',
+      image: '',
+    },
+    {
+      id: 1,
+      item_name: `null`,
+      founder: `null`,
+      lost_since: '2023-01-01',
+      image: '',
+    },
+    {
+      id: 1,
+      item_name: `null`,
+      founder: `null`,
+      lost_since: '2023-01-01',
+      image: '',
     }
   ]);
   return (

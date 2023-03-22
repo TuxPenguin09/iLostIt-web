@@ -40,6 +40,14 @@ body {
   display: inline-grid;
   width: 320px;
   height: 350px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: unset;
+  transition: 0.3s 0s cubic-bezier(0, 0.75, 0.44, 1);
+}
+
+#itemlostlists-item:hover {
+  transform:scale(1.06)
 }
 
 #itemlostlists-item-image {
