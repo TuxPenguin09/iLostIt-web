@@ -49,7 +49,11 @@ function Header() {
                 <div id="userwin-button">Add lost item</div>
                 <div id="userwin-button">View added lost items</div>
                 <div id="userwin-button">Messages</div>
-                <div id="userwin-logout">Logout</div>
+                <div id="userwin-logout" onClick={() => {
+                    setLoginWindow(false)
+                    setUserWindow(false)
+                    setLoggedIn({...loggedIn, loggedIn: false, username: ''})
+                }}>Logout</div>
                 </div>
             ) : null}
 
