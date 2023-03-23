@@ -37,8 +37,8 @@ function gridsoflost(lostItems) {
 function App() {
   return (
     <div className="App">
-      {Header()}
       <BrowserRouter>
+        {Header()}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/item" element={<ItemPage />} />

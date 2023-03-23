@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import headerlogo from '../header-logo.svg'
 
 function Header() {
@@ -20,7 +21,7 @@ function Header() {
                     color: "#ff5f5f",
                     cursor: "pointer",
                     userSelect: "none",
-                }} onClick={() => {setLoginWindow(false)}}>X</div>
+                }} onClick={() => { setLoginWindow(false) }}>X</div>
                 <h2>Login</h2>
                 <input type="text" placeholder="Username" /><br />
                 <br />
@@ -33,8 +34,8 @@ function Header() {
                 <sub>Don't have an account? Register here!</sub>
             </div> : null}
             <div className="Header">
-                <img className='headerlogo' src={headerlogo} />
-                <div className="header-login-btn" onClick={() => {setLoginWindow(true)}}>Login</div>
+                <Link to="/"><img className='headerlogo' src={headerlogo} /></Link>
+                <div className="header-login-btn" onClick={() => { setLoginWindow(true) }}>Login</div>
             </div>
             <br />
             <br />
