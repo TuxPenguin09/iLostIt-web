@@ -1,0 +1,11 @@
+.RegisterPage {
+    padding: 10px;
+}
+
+.register-btn {
+    background-color: #34ab3f;
+    padding: 13px;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

@@ -13,7 +13,7 @@ function ItemPage(props) {
                 borderRadius: "7px"
             }}>
                 <img id="itempage-image" src={null} alt="Lost Item" />
-                <p style={{color: "black"}}>Lost since {null} founded by {null}</p>
+                <p style={{color: "black"}}>Lost since {"01-01-2023"} founded by {"moritz the isip bata web developer"}</p>
             </span>
             <br />
             <div id="itempage-sendmessage">Conatct Founder</div>

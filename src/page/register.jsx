@@ -3,11 +3,12 @@ import './register.css'
 
 function RegisterPage() {
     return (
-        <div>
+        <div className="RegisterPage">
             <h2>Register</h2>
-            <p>Username:</p>
-            <p>Password:</p>
-            <p>Confirm Password:</p>
+            <p>Username: <input type='text' placeholder='Username'/></p>
+            <p>Password: <input type='password' placeholder='Password'/></p>
+            <p>Confirm Password: <input type='password' placeholder='Confirm Password'/></p>
+            <div className="register-btn">Register</div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import Header from './misc/header';
 
@@ -10,6 +10,7 @@ function gridsoflost(lostItems) {
   function itemFront(item) {
     return (
       <div id="itemlostlists-item" key={item.id}>
+        <Link to="/item">
         <img id="itemlostlists-item-image" src={item.image} />
         <div style={{
           position: "absolute",
@@ -23,6 +24,7 @@ function gridsoflost(lostItems) {
             width: "300px"
           }} id="itemlostlists-item-lostsince">{item.founder} since {item.lost_since}</span>
         </div>
+        </Link>
       </div>
     )
   }
