@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Header from './misc/header';
+
+import ItemPage from './page/item';
+import RegisterPage from './page/register'
 
 function gridsoflost(lostItems) {
   function itemFront(item) {
@@ -32,6 +36,21 @@ function gridsoflost(lostItems) {
 }
 
 function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        {Header()}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/item" element={<ItemPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+function Home() {
   const [lostItems, setLostItems] = useState([
     {
       id: 1,
@@ -63,14 +82,11 @@ function App() {
     }
   ]);
   return (
-    <div className="App">
-      {Header()}
-      <div className='App-body'>
-        <h2>Lost Items</h2>
-        {gridsoflost(lostItems)}
-      </div>
+    <div className='App-body'>
+      <h2>Lost Items</h2>
+      {gridsoflost(lostItems)}
     </div>
-  );
+  )
 }
 
 export default App;
