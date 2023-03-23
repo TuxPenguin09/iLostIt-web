@@ -4,7 +4,10 @@ import './register.css'
 function RegisterPage() {
     return (
         <div>
-            <h2>Register</h2>
+            <h2 id="ter">Register</h2>
+            <p id="me">Username:</p>
+            <p id="rd">Password:</p>
+            <p id="rm">Confirm Password:</p>
         </div>
     )
 }
