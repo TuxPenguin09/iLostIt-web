@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import './item.css'
 
 const itemlos=(props)=>
 {
     return(<div>
-        <p>Time Found:{null}</p>
-        <p>Finder Name:{null}</p>
-        <p>Item:{null}</p>
+        <p id="time_found-item">Time Found:{null}</p>
+        <p id="findername">Finder Name:{null}</p>
+        <p id="em">Item:{null}</p>
         <img src={null} alt="Lost Item"/>
         </div>);
 };
