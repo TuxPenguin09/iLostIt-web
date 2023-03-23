@@ -9,7 +9,7 @@ function Header() {
 
     const [loggedIn, setLoggedIn] = useState({
         loggedIn: true,
-        username: ''
+        username: 'User'
     })
 
     return (
@@ -45,6 +45,10 @@ function Header() {
                     cursor: "pointer",
                     userSelect: "none",
                 }} onClick={() => {setUserWindow(false)}}>X</div>
+                <h2>{loggedIn.username}</h2>
+                <div id="userwin-button">Add lost item</div>
+                <div id="userwin-button">View added lost items</div>
+                <div id="userwin-button">Messages</div>
                 <div id="userwin-logout">Logout</div>
                 </div>
             ) : null}
@@ -52,7 +56,7 @@ function Header() {
             <div className="Header">
                 <img className='headerlogo' src={headerlogo} />
                 {loggedIn.loggedIn ? (
-                    <div className="header-login-btn" onClick={() => {setUserWindow(true)}}>User</div>
+                    <div className="header-login-btn" onClick={() => {setUserWindow(true)}}>{loggedIn.username}</div>
                 ) : (
                     <div className="header-login-btn" onClick={() => {setLoginWindow(true)}}>Login</div>
                 )}

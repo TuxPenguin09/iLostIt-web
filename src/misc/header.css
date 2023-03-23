@@ -10,3 +10,14 @@
 #userwin-logout:hover {
     background-color: rgb(122, 156, 197);
 }
+
+#userwin-button {
+    padding: 3px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#userwin-button:hover {
+    background-color: rgb(122, 156, 197);
+}
