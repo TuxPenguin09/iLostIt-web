@@ -4,15 +4,16 @@ import headerlogo from '../header-logo.svg'
 function Header() {
 
     const [LoginWindow, setLoginWindow] = useState(false)
+    const [UserWindow, setUserWindow] = useState(false)
 
     const [loggedIn, setLoggedIn] = useState({
-        loggedIn: false,
+        loggedIn: true,
         username: ''
     })
 
     return (
         <span>
-            {LoginWindow ? <div className="LoginWindow">
+            {LoginWindow && !loggedIn.loggedIn ? <div className="LoginWindow">
                 <div style={{
                     position: "absolute",
                     right: "15px",
@@ -32,9 +33,27 @@ function Header() {
                 <br />
                 <sub>Don't have an account? Register here!</sub>
             </div> : null}
+
+            {UserWindow && loggedIn.loggedIn ? (
+                <div className='UserWindow'>
+                    <div style={{
+                    position: "absolute",
+                    right: "15px",
+                    fontSize: "25px",
+                    color: "#ff5f5f",
+                    cursor: "pointer",
+                    userSelect: "none",
+                }} onClick={() => {setUserWindow(false)}}>X</div>
+                </div>
+            ) : null}
+
             <div className="Header">
                 <img className='headerlogo' src={headerlogo} />
-                <div className="header-login-btn" onClick={() => {setLoginWindow(true)}}>Login</div>
+                {loggedIn.loggedIn ? (
+                    <div className="header-login-btn" onClick={() => {setUserWindow(true)}}>User</div>
+                ) : (
+                    <div className="header-login-btn" onClick={() => {setLoginWindow(true)}}>Login</div>
+                )}
             </div>
             <br />
             <br />
