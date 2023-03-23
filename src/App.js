@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import Header from './misc/header';
+import axios from 'axios';
 
 import ItemPage from './page/item';
 import RegisterPage from './page/register'
@@ -22,7 +23,7 @@ function gridsoflost(lostItems) {
             fontSize: "10px",
             position: "absolute",
             width: "300px"
-          }} id="itemlostlists-item-lostsince">{item.founder} since {item.lost_since}</span>
+          }} id="itemlostlists-item-lostsince">{item.foundlost_by} since {item.lost_since}</span>
         </div>
         </Link>
       </div>
@@ -54,35 +55,17 @@ function App() {
 
 function Home() {
   const [lostItems, setLostItems] = useState([
-    {
-      id: 1,
-      item_name: `null`,
-      founder: `null`,
-      lost_since: '2023-01-01',
-      image: '',
-    },
-    {
-      id: 1,
-      item_name: `null`,
-      founder: `null`,
-      lost_since: '2023-01-01',
-      image: '',
-    },
-    {
-      id: 1,
-      item_name: `null`,
-      founder: `null`,
-      lost_since: '2023-01-01',
-      image: '',
-    },
-    {
-      id: 1,
-      item_name: `null`,
-      founder: `null`,
-      lost_since: '2023-01-01',
-      image: '',
-    }
+    
   ]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:6885/items`)
+    .then(res => {
+      console.log(res.data)
+      setLostItems(res.data)
+    })
+  }, [])
+
   return (
     <div className='App-body'>
       <h2>Lost Items</h2>
