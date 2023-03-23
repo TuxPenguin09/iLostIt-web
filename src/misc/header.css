@@ -1,0 +1,12 @@
+#userwin-logout {
+    bottom: 10px;
+    position: absolute;
+    right: 10px;
+    padding: 7px;
+    user-select: none;
+    cursor: pointer;
+}
+
+#userwin-logout:hover {
+    background-color: rgb(122, 156, 197);
+}

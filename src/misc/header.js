@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import headerlogo from '../header-logo.svg'
+import './header.css'
 
 function Header() {
 
@@ -44,6 +45,7 @@ function Header() {
                     cursor: "pointer",
                     userSelect: "none",
                 }} onClick={() => {setUserWindow(false)}}>X</div>
+                <div id="userwin-logout">Logout</div>
                 </div>
             ) : null}
 
