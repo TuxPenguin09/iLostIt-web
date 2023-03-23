@@ -4,6 +4,7 @@ import './App.css';
 import Header from './misc/header';
 
 import ItemPage from './page/item';
+import RegisterPage from './page/register'
 
 function gridsoflost(lostItems) {
   function itemFront(item) {
@@ -42,6 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/item" element={<ItemPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </div>
