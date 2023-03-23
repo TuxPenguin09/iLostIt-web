@@ -12,7 +12,7 @@ function gridsoflost(lostItems) {
     return (
       <div id="itemlostlists-item" key={item.id}>
         <Link to="/item">
-        <img id="itemlostlists-item-image" src={item.image} />
+        <img id="itemlostlists-item-image" alt="Lost Item" src={`http://localhost:6885/cdn/image?img=${item.image}`} />
         <div style={{
           position: "absolute",
           marginTop: "311px",
