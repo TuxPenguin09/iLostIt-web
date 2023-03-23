@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import './item.css'
 
-const itemlos=(props)=>
-{
-    return(<div>
-        <p id="time_found-item">Time Found:{null}</p>
-        <p id="findername">Finder Name:{null}</p>
-        <p id="em">Item:{null}</p>
-        <img src={null} alt="Lost Item"/>
-        </div>);
-};
-
 function ItemPage(props) {
     return (
-        <div>
+        <div className="ItemPage">
             <h2>Item</h2>
-            {/*Insert your HTML code here*/}
-            {itemlos()}
+            <div>
+                <img id="itempage-image" src={null} alt="Lost Item" />
+                <p id="time_found-item">Time Found:{null}</p>
+                <p id="findername">Finder Name:{null}</p>
+                <p id="em">Item:{null}</p>
+                
+            </div>
         </div>
     )
 }

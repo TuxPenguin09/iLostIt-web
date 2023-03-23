@@ -1,3 +1,17 @@
+.ItemPage {
+    padding: 10px;
+}
+
+#itempage-image {
+    background-color: black;
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    max-height: 600px;
+    display: block;
+}
+
 #time_found-item
 {
  color:hotpink;
