@@ -9,7 +9,7 @@ function Header() {
     const [UserWindow, setUserWindow] = useState(false)
 
     const [loggedIn, setLoggedIn] = useState({
-        loggedIn: true,
+        loggedIn: false,
         username: 'User'
     })
 
