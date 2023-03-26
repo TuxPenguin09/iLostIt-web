@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './item.css'
+import { useParams } from 'react-router-dom';
 const hostname = process.env.REACT_APP_HOSTNAME;
 
+
 function ItemPage(props) {
+
+    const { "*": itemid } = useParams();
+
+    useEffect(() => {
+        console.log(itemid)
+    }, [itemid])
+    
     return (
         <div className="ItemPage">
             <h2>Item</h2>

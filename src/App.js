@@ -13,7 +13,7 @@ function gridsoflost(lostItems) {
   function itemFront(item) {
     return (
       <div id="itemlostlists-item" key={item.id}>
-        <Link to="/item">
+        <Link to={`/item/${item.id}`}>
         <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
         <div style={{
           position: "absolute",
@@ -25,7 +25,7 @@ function gridsoflost(lostItems) {
             fontSize: "10px",
             position: "absolute",
             width: "300px"
-          }} id="itemlostlists-item-lostsince">{item.foundlost_by} since {item.lost_since}</span>
+          }} id="itemlostlists-item-lostsince">{item.username} since {item.lost_since}</span>
         </div>
         </Link>
       </div>
@@ -47,7 +47,7 @@ function App() {
         {Header()}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/item" element={<ItemPage />} />
+          <Route path="/item/*" element={<ItemPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
@@ -56,22 +56,30 @@ function App() {
 }
 
 function Home() {
+  const [noperm, setNoPerm] = useState(false);
   const [lostItems, setLostItems] = useState([
     
   ]);
 
   useEffect(() => {
-    axios.get(`${hostname}/items`)
+    axios.get(`${hostname}/items`, {
+      'headers': {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
     .then(res => {
       console.log(res.data)
       setLostItems(res.data)
+    })
+    .catch(err => {
+      setNoPerm(true)
     })
   }, [])
 
   return (
     <div className='App-body'>
       <h2>Lost Items</h2>
-      {gridsoflost(lostItems)}
+      {noperm ? <div>Sorry, you need to login to view the list</div> : gridsoflost(lostItems)}
     </div>
   )
 }
