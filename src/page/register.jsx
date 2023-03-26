@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './register.css'
 import axios from 'axios';
 
+const hostname = process.env.REACT_APP_HOSTNAME;
+
 function RegisterPage() {
 
     const [username, setUsername] = useState("");
@@ -15,7 +17,7 @@ function RegisterPage() {
         console.log("Registering")
         if (password === confirmPassword) {
             setRegistering(true);
-            axios.post("http://localhost:6885/accounts/register", {
+            axios.post(`${hostname}/accounts/register`, {
                 username: username,
                 password: password,
                 confirmpassword: confirmPassword

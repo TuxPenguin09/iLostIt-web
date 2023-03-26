@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './item.css'
+const hostname = process.env.REACT_APP_HOSTNAME;
 
 function ItemPage(props) {
     return (

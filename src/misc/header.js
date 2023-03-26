@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import headerlogo from '../header-logo.svg'
+import axios from 'axios'
 import './header.css'
+
+const hostname = process.env.REACT_APP_HOSTNAME;
 
 function Header() {
 
@@ -10,8 +13,39 @@ function Header() {
 
     const [loggedIn, setLoggedIn] = useState({
         loggedIn: false,
-        username: 'User'
+        loggingin: false,
+        username: '',
+        password: '',
+        permission: 255
     })
+
+    function Login() {
+        setLoggedIn({ ...loggedIn, loggingin: true })
+        axios.post(`${hostname}/accounts/login`, {
+            "username": loggedIn.username,
+            "password": loggedIn.password
+        })
+        .then((res) => {
+            console.log(res)
+            setLoggedIn({ ...loggedIn, loggingin: false, loggedIn: true, username: res.data.username, password: '' })
+            localStorage.setItem('token', res.data.token)
+            setLoginWindow(false)
+        })
+        .catch((err) => {
+            console.log(err)
+            setLoggedIn({ ...loggedIn, loggingin: false })
+        })
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
+            .then((res) => {
+                setLoggedIn({ ...loggedIn, loggedIn: true, username: res.data.username, permission: res.data.permission })
+            })
+            //setLoggedIn({ ...loggedIn, loggedIn: true, username: key.split('+')[0], permission: key.split('+')[1] })
+        }
+    }, [])
 
     return (
         <span>
@@ -25,15 +59,16 @@ function Header() {
                     userSelect: "none",
                 }} onClick={() => { setLoginWindow(false) }}>X</div>
                 <h2>Login</h2>
-                <input type="text" placeholder="Username" /><br />
+                <input type="text" placeholder="Username" disabled={loggedIn.loggingin} onChange={(e) => setLoggedIn({...loggedIn, username: e.target.value})} value={loggedIn.username} /><br />
                 <br />
-                <input type="text" placeholder="Password" /><br />
+                <input type="text" placeholder="Password" disabled={loggedIn.loggingin} onChange={(e) => setLoggedIn({...loggedIn, password: e.target.value})} value={loggedIn.password} /><br />
                 <br />
                 <button style={{
                     backgroundColor: "rgb(103 255 95)",
-                }}>Login</button><br />
+                    display: loggedIn.loggingin ? ("none") : ("inline-block"),
+                }} onClick={() => Login()}>Login</button><br />
                 <br />
-                <sub>Don't have an account? Register here!</sub>
+                <Link to="/register"><sub>Don't have an account? Register here!</sub></Link>
             </div> : null}
 
             {UserWindow && loggedIn.loggedIn ? (
@@ -54,6 +89,7 @@ function Header() {
                         setLoginWindow(false)
                         setUserWindow(false)
                         setLoggedIn({ ...loggedIn, loggedIn: false, username: '' })
+                        localStorage.removeItem('token')
                     }}>Logout</div>
                 </div>
             ) : null}

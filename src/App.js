@@ -7,12 +7,14 @@ import axios from 'axios';
 import ItemPage from './page/item';
 import RegisterPage from './page/register'
 
+const hostname = process.env.REACT_APP_HOSTNAME;
+
 function gridsoflost(lostItems) {
   function itemFront(item) {
     return (
       <div id="itemlostlists-item" key={item.id}>
         <Link to="/item">
-        <img id="itemlostlists-item-image" alt="Lost Item" src={`http://localhost:6885/cdn/image?img=${item.image}`} />
+        <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
         <div style={{
           position: "absolute",
           marginTop: "311px",
@@ -59,7 +61,7 @@ function Home() {
   ]);
 
   useEffect(() => {
-    axios.get(`http://localhost:6885/items`)
+    axios.get(`${hostname}/items`)
     .then(res => {
       console.log(res.data)
       setLostItems(res.data)
