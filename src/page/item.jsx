@@ -76,6 +76,8 @@ function ItemPage(props) {
                 </span>
                 <br />
                 <div id="itempage-sendmessage">Contact Facilities Department</div>
+                <br />
+                <div id="itempage-report">Report Item</div>
             </span>))}
         </div>
     )
