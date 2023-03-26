@@ -29,16 +29,23 @@ function ItemPage(props) {
         })
             .then(res => {
                 console.log(res.data)
-                setitemdet({
-                    title: res.data.item_name,
-                    founder: res.data.username,
-                    date: res.data.lost_since,
-                    image: res.data.image,
-                })
-                setLoading({
-                    loading: false,
-                    error: false,
-                })
+                if (res.data === undefined || res.data === null || res.data === "") {
+                    setLoading({
+                        loading: false,
+                        error: true,
+                    })
+                } else {
+                    setitemdet({
+                        title: res.data.item_name,
+                        founder: res.data.username,
+                        date: res.data.lost_since,
+                        image: res.data.image,
+                    })
+                    setLoading({
+                        loading: false,
+                        error: false,
+                    })
+                }
             })
             .catch(err => {
                 console.log(err)
