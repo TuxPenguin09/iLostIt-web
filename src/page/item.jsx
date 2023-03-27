@@ -19,6 +19,13 @@ function ItemPage(props) {
         date: '',
         image: '',
         status: 'pending',
+        permLevel: 255
+    })
+
+    const [reportWindow, setReportWindow] = useState({
+        appear: false,
+        submitted: false,
+        reason: ''
     })
 
     useEffect(() => {
@@ -41,7 +48,8 @@ function ItemPage(props) {
                         founder: res.data.username,
                         date: res.data.lost_since,
                         image: res.data.image,
-                        status: res.data.status
+                        status: res.data.status,
+                        permLevel: res.data.permissionLevel
                     })
                     setLoading({
                         loading: false,
@@ -80,7 +88,42 @@ function ItemPage(props) {
                 <br />
                 <div id="itempage-sendmessage">Contact Facilities Department</div>
                 <br />
-                <div id="itempage-report">Report Item</div>
+                {reportWindow.appear ? (
+                    reportWindow.submitted ? (
+                        <span>
+                            <h2>Thanks for the report! The staff will review this item that isn't reliable!</h2>
+                            <div id="itempage-report" onClick={() => setReportWindow({ ...reportWindow, appear: false, submitted: false })}>Close</div>
+                        </span>
+                    ) : (
+                        <span>
+                            <h2>Report Post</h2>
+                            Please provide any details about the item that you think is not reliable<br />
+                            <textarea value={reportWindow.reason} onChange={(e) => setReportWindow({ ...reportWindow, reason: e.target.value })}
+                                style={{
+                                    width: "100%",
+                                    height: "150px"
+                                }}>
+
+                            </textarea>
+                            <br />
+                            <div id="itempage-report" onClick={() => {
+                                axios.post(`${hostname}/items/report`, {
+                                    itemid: itemid,
+                                    reason: reportWindow.reason
+                                }, {
+                                    headers: {
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    }
+                                })
+                                setReportWindow({ ...reportWindow, submitted: true, reason: '' })
+                            }}>Submit Report</div>
+                            <br />
+                            <div id="itempage-report" onClick={() => setReportWindow({ ...reportWindow, appear: false })}>Cancel</div>
+                        </span>
+                    )
+                ) : (
+                    <div id="itempage-report" onClick={() => setReportWindow({ ...reportWindow, appear: true })}>Report Item</div>
+                )}
             </span>))}
         </div>
     )
