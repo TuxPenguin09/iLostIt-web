@@ -18,6 +18,7 @@ function ItemPage(props) {
         founder: '',
         date: '',
         image: '',
+        status: 'pending',
     })
 
     useEffect(() => {
@@ -40,6 +41,7 @@ function ItemPage(props) {
                         founder: res.data.username,
                         date: res.data.lost_since,
                         image: res.data.image,
+                        status: res.data.status
                     })
                     setLoading({
                         loading: false,
@@ -64,6 +66,7 @@ function ItemPage(props) {
                 </span>
             ) : (<span>
                 <h2>{itemdet.title}</h2>
+                {itemdet.status === 'pending' ? (<div className="itempage-status-pending">This item is in review by staff<br /><br /></div>) : (null)}
                 <span style={{
                     backgroundColor: "white",
                     display: "block",
