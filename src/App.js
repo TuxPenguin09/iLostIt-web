@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import ItemPage from './page/item';
 import RegisterPage from './page/register'
+import AddItemPage from './misc/additem'
 
 const hostname = process.env.REACT_APP_HOSTNAME;
 
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/item/*" element={<ItemPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/add" element={<AddItemPage />} />
         </Routes>
       </BrowserRouter>
     </div>

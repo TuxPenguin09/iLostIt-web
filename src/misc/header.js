@@ -68,7 +68,7 @@ function Header() {
                     display: loggedIn.loggingin ? ("none") : ("inline-block"),
                 }} onClick={() => Login()}>Login</button><br />
                 <br />
-                <Link to="/register"><sub>Don't have an account? Register here!</sub></Link>
+                <Link to="/register" onClick={() => setLoginWindow(false)}><sub>Don't have an account? Register here!</sub></Link>
             </div> : null}
 
             {UserWindow && loggedIn.loggedIn ? (
@@ -82,7 +82,7 @@ function Header() {
                         userSelect: "none",
                     }} onClick={() => { setUserWindow(false) }}>X</div>
                     <h2>{loggedIn.username}</h2>
-                    <div id="userwin-button">Add lost item</div>
+                    <Link to={'/add'} onClick={() => setUserWindow(false)}><div id="userwin-button">Add lost item</div></Link>
                     <div id="userwin-button">View added lost items</div>
                     <div id="userwin-button">Messages</div>
                     <div id="userwin-logout" onClick={() => {

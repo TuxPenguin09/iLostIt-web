@@ -16,6 +16,9 @@
     margin-bottom: 10px;
     cursor: pointer;
     user-select: none;
+    text-decoration: none;
+    color: white;
+    
 }
 
 #userwin-button:hover {
