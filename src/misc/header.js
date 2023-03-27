@@ -41,7 +41,7 @@ function Header() {
         if (localStorage.getItem('token')) {
             axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
             .then((res) => {
-                setLoggedIn({ ...loggedIn, loggedIn: true, username: res.data.username, permission: res.data.permission })
+                setLoggedIn({ ...loggedIn, loggedIn: true, username: res.data.username, permission: parseInt(res.data.permission) })
             })
             //setLoggedIn({ ...loggedIn, loggedIn: true, username: key.split('+')[0], permission: key.split('+')[1] })
         }
