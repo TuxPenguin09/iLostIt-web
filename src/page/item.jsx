@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './item.css'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const hostname = process.env.REACT_APP_HOSTNAME;
 
 function ItemPage(props) {
 
     const { "*": itemid } = useParams();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState({
         loading: true,
@@ -19,13 +20,18 @@ function ItemPage(props) {
         date: '',
         image: '',
         status: 'pending',
-        permLevel: 255
+        permLevel: 255,
+        foundlost_by: 0,
     })
 
     const [reportWindow, setReportWindow] = useState({
         appear: false,
         submitted: false,
         reason: ''
+    })
+
+    const [session, setSession] = useState({
+        id: 0
     })
 
     useEffect(() => {
@@ -49,7 +55,8 @@ function ItemPage(props) {
                         date: res.data.lost_since,
                         image: res.data.image,
                         status: res.data.status,
-                        permLevel: res.data.permissionLevel
+                        permLevel: res.data.permissionLevel,
+                        foundlost_by: res.data.foundlost_by
                     })
                     setLoading({
                         loading: false,
@@ -65,6 +72,15 @@ function ItemPage(props) {
                 })
             })
     }, [itemid])
+
+    useEffect(() => {
+        axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
+            .then((res) => {
+                setSession({
+                    id: res.data.userid
+                })
+            })
+    }, [])
 
     return (
         <div className="ItemPage">
@@ -96,7 +112,7 @@ function ItemPage(props) {
                         </span>
                     ) : (
                         <span>
-                            <h2>Report Post</h2>
+                            <h2>Report Item</h2>
                             Please provide any details about the item that you think is not reliable<br />
                             <textarea value={reportWindow.reason} onChange={(e) => setReportWindow({ ...reportWindow, reason: e.target.value })}
                                 style={{
@@ -125,6 +141,25 @@ function ItemPage(props) {
                     <div id="itempage-report" onClick={() => setReportWindow({ ...reportWindow, appear: true })}>Report Item</div>
                 )}
             </span>))}
+
+            {itemdet.permLevel <= 3 || itemdet.foundlost_by === session.id ? (<span>
+                <br />
+                <div id="itempage-report" onClick={() => {
+                    if (window.confirm("Do you want to delete this item?")) {
+                        axios.delete(`${hostname}/items/delete`, {
+                            data: {
+                                itemid: itemid
+                            },
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`
+                            }
+                        })
+                            .then(res => {
+                                navigate('/')
+                            })
+                    }
+                }}>Delete Item</div>
+            </span>) : (null)}
         </div>
     )
 }
