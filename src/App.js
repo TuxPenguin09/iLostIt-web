@@ -13,7 +13,9 @@ const hostname = process.env.REACT_APP_HOSTNAME;
 function gridsoflost(lostItems) {
   function itemFront(item) {
     return (
-      <div id="itemlostlists-item" key={item.id}>
+      <div id="itemlostlists-item" style={{
+        backgroundColor: item.status === "pending" ? "rgb(255 255 182)" : null
+      }} key={item.id}>
         <Link to={`/item/${item.id}`}>
         <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
         <div style={{
