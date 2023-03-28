@@ -102,6 +102,26 @@ function ItemPage(props) {
                     <p style={{ color: "black" }}>Lost since {itemdet.date} founded by {itemdet.founder}</p>
                 </span>
                 <br />
+                {itemdet.permLevel <= 3 && itemdet.status === "pending" ? (<span>
+                    <br />
+                    <div id="itempage-sendmessage" onClick={() => {
+                        if (window.confirm("Do you want to approve this item? This item will make it visible to all students.")) {
+                            axios.post(`${hostname}/items/approve`, {
+                                itemid: itemid
+                            }, {
+                                headers: {
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                }
+                            })
+                            .then(res => {
+                                setitemdet({
+                                    ...itemdet,
+                                    status: 'approved'
+                                })
+                            })
+                        }
+                    }}>Approve Item for Students</div><br />
+                </span>) : (null)}
                 <div id="itempage-sendmessage">Contact Facilities Department</div>
                 <br />
                 {reportWindow.appear ? (
