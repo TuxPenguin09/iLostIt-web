@@ -83,7 +83,7 @@ function Header() {
                     }} onClick={() => { setUserWindow(false) }}>X</div>
                     <h2>{loggedIn.username}</h2>
                     <Link to={'/add'} onClick={() => setUserWindow(false)}><div id="userwin-button">Add lost item</div></Link>
-                    <div id="userwin-button">View added lost items</div>
+                    <Link to={'/itembyuser'}><div id="userwin-button" onClick={() => setUserWindow(false)}>View added lost items</div></Link>
                     <div id="userwin-button">Messages</div>
                     <div id="userwin-logout" onClick={() => {
                         setLoginWindow(false)
