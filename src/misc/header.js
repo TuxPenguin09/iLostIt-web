@@ -72,7 +72,9 @@ function Header() {
             </div> : null}
 
             {UserWindow && loggedIn.loggedIn ? (
-                <div className='UserWindow'>
+                <div className='UserWindow' style={{
+                    height: loggedIn.permission <= 3 ?  "230px" : null
+                }}>
                     <div style={{
                         position: "absolute",
                         right: "15px",
@@ -85,6 +87,7 @@ function Header() {
                     <Link to={'/add'} onClick={() => setUserWindow(false)}><div id="userwin-button">Add lost item</div></Link>
                     <Link to={'/itembyuser'}><div id="userwin-button" onClick={() => setUserWindow(false)}>View added lost items</div></Link>
                     <div id="userwin-button">Messages</div>
+                    {loggedIn.permission <= 3 ? <div id="userwin-button">Audit Log</div> : null}
                     <div id="userwin-logout" onClick={() => {
                         setLoginWindow(false)
                         setUserWindow(false)
