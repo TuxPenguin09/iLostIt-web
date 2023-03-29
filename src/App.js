@@ -8,6 +8,7 @@ import ItemPage from './page/item';
 import RegisterPage from './page/register'
 import AddItemPage from './misc/additem'
 import ItemByUserPage from './page/ItemAddedByUser'
+import AuditLogPage from './misc/auditlog';
 
 const hostname = process.env.REACT_APP_HOSTNAME;
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/add" element={<AddItemPage />} />
           <Route path="/itembyuser" element={<ItemByUserPage />} />
+          <Route path="/log" element={<AuditLogPage />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -86,7 +86,7 @@ function Header() {
                     <h2>{loggedIn.username}</h2>
                     <Link to={'/add'} onClick={() => setUserWindow(false)}><div id="userwin-button">Add lost item</div></Link>
                     <Link to={'/itembyuser'}><div id="userwin-button" onClick={() => setUserWindow(false)}>View added lost items</div></Link>
-                    <div id="userwin-button">Messages</div>
+                    <Link to={'/log'}><div id="userwin-button" onClick={() => setUserWindow(false)}>Messages</div></Link>
                     {loggedIn.permission <= 3 ? <div id="userwin-button">Audit Log</div> : null}
                     <div id="userwin-logout" onClick={() => {
                         setLoginWindow(false)
