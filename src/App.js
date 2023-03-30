@@ -9,6 +9,7 @@ import RegisterPage from './page/register'
 import AddItemPage from './misc/additem'
 import ItemByUserPage from './page/ItemAddedByUser'
 import AuditLogPage from './misc/auditlog';
+import { MessagesPage, DirectMessagePage } from './page/messages'
 
 const hostname = process.env.REACT_APP_HOSTNAME;
 
@@ -57,6 +58,8 @@ function App() {
           <Route path="/add" element={<AddItemPage />} />
           <Route path="/itembyuser" element={<ItemByUserPage />} />
           <Route path="/log" element={<AuditLogPage />} />
+          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/messages/:item/:user" element={<DirectMessagePage />} />
         </Routes>
       </BrowserRouter>
     </div>
