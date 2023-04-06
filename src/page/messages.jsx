@@ -16,7 +16,7 @@ export function MessagesPage(props) {
         }).then(res => {
             setMessageList(res.data)
         })
-    })
+    }, [])
 
     function MessageList() {
         return (<div>
@@ -28,7 +28,23 @@ export function MessagesPage(props) {
         <div style={{padding: "10px"}}>
             <h2>Messages</h2>
             {messagelist.map((message, index) => {
-
+                console.log(message)
+                return (
+                    <Link to={`/messages/${message.item}/${message.accid}`}><div key={index} style={{
+                        marginTop: "80px",
+                        marginBottom: "10px",
+                        paddingBottom: "20px",
+                        color: "#FFFFFF"
+                    }}>
+                        <img src={`${hostname}/cdn/image?img=${message.image}`} style={{
+                            maxHeight: "80px",
+                            position: 'absolute',
+                            marginTop: "-80px"
+                        }} />
+                        <span>{message.item_name} - {message.username}</span>
+                        
+                    </div></Link>
+                )
             })}
         </div>
     )
