@@ -61,7 +61,7 @@ function Header() {
                 <h2>Login</h2>
                 <input type="text" placeholder="Username" disabled={loggedIn.loggingin} onChange={(e) => setLoggedIn({...loggedIn, username: e.target.value})} value={loggedIn.username} /><br />
                 <br />
-                <input type="text" placeholder="Password" disabled={loggedIn.loggingin} onChange={(e) => setLoggedIn({...loggedIn, password: e.target.value})} value={loggedIn.password} /><br />
+                <input type="password" placeholder="Password" disabled={loggedIn.loggingin} onChange={(e) => setLoggedIn({...loggedIn, password: e.target.value})} value={loggedIn.password} /><br />
                 <br />
                 <button style={{
                     backgroundColor: "rgb(103 255 95)",
