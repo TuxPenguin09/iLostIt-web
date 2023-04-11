@@ -22,6 +22,8 @@ function ItemPage(props) {
         status: 'pending',
         permLevel: 255,
         foundlost_by: 0,
+        foundbool: 0,
+        owner: ''
     })
 
     const [reportWindow, setReportWindow] = useState({
@@ -56,7 +58,10 @@ function ItemPage(props) {
                         image: res.data.image,
                         status: res.data.status,
                         permLevel: res.data.permissionLevel,
-                        foundlost_by: res.data.foundlost_by
+                        foundlost_by: res.data.foundlost_by,
+                        foundbool: res.data.founded.founded,
+                        owner: res.data.founded.owner,
+                        
                     })
                     setLoading({
                         loading: false,
@@ -122,7 +127,7 @@ function ItemPage(props) {
                         }
                     }}>Approve Item for Students</div><br />
                 </span>) : (null)}
-                <div id="itempage-sendmessage">Contact Facilities Department</div>
+                {itemdet.foundbool === 1 ? (<div className="itempage-status-pending">This item has been returned to {itemdet.owner}<br /><br /></div>) : (<div id="itempage-sendmessage">Contact Facilities Department</div>)}
                 <br />
                 {reportWindow.appear ? (
                     reportWindow.submitted ? (
