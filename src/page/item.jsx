@@ -127,7 +127,8 @@ function ItemPage(props) {
                         }
                     }}>Approve Item for Students</div><br />
                 </span>) : (null)}
-                {itemdet.foundbool === 1 ? (<div className="itempage-status-pending">This item has been returned to {itemdet.owner}<br /><br /></div>) : (<div id="itempage-sendmessage">Contact Facilities Department</div>)}
+                {itemdet.foundbool === 1 ? (<div className="itempage-status-pending">This item has been returned to {itemdet.owner}<br /><br /></div>) : (
+                itemdet.permLevel <= 3 && itemdet.status === "approved" ? (<div id="itempage-sendmessage">Mark Founded</div>) : (itemdet.permLevel > 3 ? (<div id="itempage-sendmessage">Contact Facilities Department</div>) : (null)))}
                 <br />
                 {reportWindow.appear ? (
                     reportWindow.submitted ? (
