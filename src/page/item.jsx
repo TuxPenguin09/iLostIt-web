@@ -14,6 +14,12 @@ function ItemPage(props) {
         error: false,
     })
 
+    const [enterOwnerName, setEnterOwnerName] = useState({
+        window: false,
+        submitted: false,
+        ownername: '',
+    })
+
     const [itemdet, setitemdet] = useState({
         title: '',
         founder: '',
@@ -61,7 +67,7 @@ function ItemPage(props) {
                         foundlost_by: res.data.foundlost_by,
                         foundbool: res.data.founded.founded,
                         owner: res.data.founded.owner,
-                        
+
                     })
                     setLoading({
                         loading: false,
@@ -118,17 +124,38 @@ function ItemPage(props) {
                                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                                 }
                             })
-                            .then(res => {
-                                setitemdet({
-                                    ...itemdet,
-                                    status: 'approved'
+                                .then(res => {
+                                    setitemdet({
+                                        ...itemdet,
+                                        status: 'approved'
+                                    })
                                 })
-                            })
                         }
                     }}>Approve Item for Students</div><br />
                 </span>) : (null)}
                 {itemdet.foundbool === 1 ? (<div className="itempage-status-pending">This item has been returned to {itemdet.owner}<br /><br /></div>) : (
-                itemdet.permLevel <= 3 && itemdet.status === "approved" ? (<div id="itempage-sendmessage">Mark Founded</div>) : (itemdet.permLevel > 3 ? (<div id="itempage-sendmessage">Contact Facilities Department</div>) : (null)))}
+                    itemdet.permLevel <= 3 && itemdet.status === "approved" ? (
+                        enterOwnerName.window ? (
+                            enterOwnerName.submitted ? (<div>
+                                This item has been returned to {enterOwnerName.ownername}<br /><br />
+                            </div>) : (
+                                <div>
+                                    Enter Owner Name:<br />
+                                    <input type="text" placeholder="Enter Owner Name" style={{ width: "50%" }} maxLength={27} onChange={(e) => setEnterOwnerName({ ...enterOwnerName, ownername: e.target.value })} value={enterOwnerName.ownername} /><br /><br />
+                                    {enterOwnerName.ownername !== null && enterOwnerName.ownername !== undefined && enterOwnerName.ownername !== '' ? (
+                                        <span><div id="itempage-sendmessage" onClick={() => {
+                                            axios.post(`${hostname}/items/markfound`, {
+                                                itemid: itemid,
+                                                owner: enterOwnerName.ownername
+                                            }, {headers: {
+                                                Authorization: `Bearer ${localStorage.getItem('token')}`
+                                            }})
+                                            setEnterOwnerName({ ...enterOwnerName, submitted: true })
+                                        }}>Mark Founded by {enterOwnerName.ownername}</div><br /></span>) : null}
+                                    <div id="itempage-report" onClick={() => setEnterOwnerName({ ...enterOwnerName, window: false, ownername: '' })}>Cancel</div><br />
+                                </div>
+                            )) : (<div id="itempage-sendmessage" onClick={() => setEnterOwnerName({ ...enterOwnerName, window: true })}>Mark Founded</div>)
+                    ) : (itemdet.permLevel > 3 ? (<div id="itempage-sendmessage">Contact Facilities Department</div>) : (null)))}
                 <br />
                 {reportWindow.appear ? (
                     reportWindow.submitted ? (
