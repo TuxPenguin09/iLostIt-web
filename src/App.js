@@ -20,19 +20,19 @@ function gridsoflost(lostItems) {
         backgroundColor: item.status === "pending" ? "rgb(255 255 182)" : null
       }} key={item.id}>
         <Link to={`/item/${item.id}`}>
-        <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
-        <div style={{
-          position: "absolute",
-          marginTop: "311px",
-          marginLeft: "10px",
-        }}>
-          <span id="itemlostlists-item-title">{item.item_name}</span><br />
-          <span style={{
-            fontSize: "10px",
+          <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
+          <div style={{
             position: "absolute",
-            width: "300px"
-          }} id="itemlostlists-item-lostsince">{item.username} since {item.lost_since}</span>
-        </div>
+            marginTop: "311px",
+            marginLeft: "10px",
+          }}>
+            <span id="itemlostlists-item-title">{item.item_name}</span><br />
+            <span style={{
+              fontSize: "10px",
+              position: "absolute",
+              width: "300px"
+            }} id="itemlostlists-item-lostsince">{item.username} since {item.lost_since}</span>
+          </div>
         </Link>
       </div>
     )
@@ -68,9 +68,21 @@ function App() {
 
 function Home() {
   const [noperm, setNoPerm] = useState(false);
+  const [loggedIn, setLoggedIn] = useState({
+    loggedIn: false,
+    loggingin: false,
+    username: '',
+    password: '',
+    permission: 255
+  })
   const [lostItems, setLostItems] = useState([
-    
+
   ]);
+
+  const [sorts, setSorts] = useState({
+    tag: "All",
+    status: "All"
+  })
 
   useEffect(() => {
     axios.get(`${hostname}/items`, {
@@ -78,19 +90,87 @@ function Home() {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
-    .then(res => {
-      console.log(res.data)
-      setLostItems(res.data)
-    })
-    .catch(err => {
-      setNoPerm(true)
-    })
+      .then(res => {
+        console.log(res.data)
+        setLostItems(res.data)
+      })
+      .catch(err => {
+        setNoPerm(true)
+      })
+
+    if (localStorage.getItem('token')) {
+      axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
+        .then((res) => {
+          setLoggedIn({ ...loggedIn, loggedIn: true, username: res.data.username, permission: parseInt(res.data.permission) })
+        })
+      //setLoggedIn({ ...loggedIn, loggedIn: true, username: key.split('+')[0], permission: key.split('+')[1] })
+    }
   }, [])
+
+  function AdminView() {
+    return (
+      <div>
+        <h2>Dashboard</h2>
+        <h3>Lost Items</h3>
+
+        <span>
+          Tags:
+          <select>
+            <option value="All">All</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Books and Notebooks">Books and Notebooks</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Writing Materials">Writing Materials</option>
+            <option value="Instruments">Instruments</option>
+            <option value="Other">Other</option>
+          </select>
+        </span><br />
+        <br />
+
+        <span>
+          Status:
+          <select>
+            <option value="All">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Claimed">Claimed and Donated to Charity</option>
+          </select>
+        </span><br />
+        <br />
+
+        {gridsoflost(lostItems)}
+      </div>
+    )
+  }
 
   return (
     <div className='App-body'>
-      <h2>Lost Items</h2>
-      {noperm ? <div>Sorry, you need to login to view the list</div> : gridsoflost(lostItems)}
+      {loggedIn.permission <= 3 ? (
+        <span>
+          {AdminView()}
+        </span>
+      ) : (
+        <span>
+          <h2>Lost Items</h2>
+          {noperm ? <div>Sorry, you need to login to view the list</div> : (
+            <span>
+              <span>
+                Tags:
+                <select>
+                  <option value="All">All</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Books and Notebooks">Books and Notebooks</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Writing Materials">Writing Materials</option>
+                  <option value="Instruments">Instruments</option>
+                  <option value="Other">Other</option>
+                </select>
+              </span><br />
+              <br />
+              {gridsoflost(lostItems)}
+            </span>
+          )}
+        </span>
+      )}
     </div>
   )
 }
