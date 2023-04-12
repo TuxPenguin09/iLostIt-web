@@ -187,7 +187,7 @@ function Home() {
                 Tags:
                 <select onChange={(e) => {
                   setSorts({ ...sorts, tag: e.target.value })
-                  axios.get(`${hostname}/items?tag=${sorts.tag}`, {
+                  axios.get(`${hostname}/items?tag=${sorts.tag}&status=All`, {
                     'headers': {
                       'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }

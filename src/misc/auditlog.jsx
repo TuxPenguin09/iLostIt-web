@@ -25,9 +25,15 @@ function AuditLogPage(props) {
         })
     }
 
+    function ExportCSV() {
+        
+    }
+
     return (
         <div className='AuditLogWindow'>
             <h2>Audit Log</h2>
+            <div id="additem-button" onClick={() => ExportCSV()}>Export as CSV</div>
+            <br />
             {Lists(audits)}
         </div>
     )
