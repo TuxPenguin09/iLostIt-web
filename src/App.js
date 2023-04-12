@@ -115,7 +115,22 @@ function Home() {
 
         <span>
           Tags:
-          <select>
+          <select onChange={(e) => {
+              setSorts({ ...sorts, tag: e.target.value })
+              setLostItems([])
+              axios.get(`${hostname}/items?tag=${sorts.tag}&status=${sorts.status}`, {
+                'headers': {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+              })
+                .then(res => {
+                  console.log(res.data)
+                  setLostItems(res.data)
+                })
+                .catch(err => {
+                  setNoPerm(true)
+                })
+            }}>
             <option value="All">All</option>
             <option value="Electronics">Electronics</option>
             <option value="Books and Notebooks">Books and Notebooks</option>
@@ -129,7 +144,22 @@ function Home() {
 
         <span>
           Status:
-          <select>
+          <select onChange={(e) => {
+              setSorts({ ...sorts, status: e.target.value })
+              setLostItems([])
+              axios.get(`${hostname}/items?tag=${sorts.tag}&status=${sorts.status}`, {
+                'headers': {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+              })
+                .then(res => {
+                  console.log(res.data)
+                  setLostItems(res.data)
+                })
+                .catch(err => {
+                  setNoPerm(true)
+                })
+            }}>
             <option value="All">All</option>
             <option value="Pending">Pending</option>
             <option value="Claimed">Claimed and Donated to Charity</option>
@@ -155,7 +185,21 @@ function Home() {
             <span>
               <span>
                 Tags:
-                <select>
+                <select onChange={(e) => {
+                  setSorts({ ...sorts, tag: e.target.value })
+                  axios.get(`${hostname}/items?tag=${sorts.tag}`, {
+                    'headers': {
+                      'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                  })
+                    .then(res => {
+                      console.log(res.data)
+                      setLostItems(res.data)
+                    })
+                    .catch(err => {
+                      setNoPerm(true)
+                    })
+                }}>
                   <option value="All">All</option>
                   <option value="Electronics">Electronics</option>
                   <option value="Books and Notebooks">Books and Notebooks</option>
