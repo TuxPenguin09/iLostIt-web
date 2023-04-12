@@ -155,7 +155,7 @@ function ItemPage(props) {
                                     <div id="itempage-report" onClick={() => setEnterOwnerName({ ...enterOwnerName, window: false, ownername: '' })}>Cancel</div><br />
                                 </div>
                             )) : (<div id="itempage-sendmessage" onClick={() => setEnterOwnerName({ ...enterOwnerName, window: true })}>Mark Founded</div>)
-                    ) : (itemdet.permLevel > 3 ? (<div id="itempage-sendmessage">Contact Facilities Department</div>) : (null)))}
+                    ) : (itemdet.permLevel > 3 ? (<div style={{padding: "10px"}}>You own this item? Please go to the facilities department to claim this lost item</div>) : (null)))}
                 <br />
                 {reportWindow.appear ? (
                     reportWindow.submitted ? (
