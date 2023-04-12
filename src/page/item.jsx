@@ -141,7 +141,7 @@ function ItemPage(props) {
                             </div>) : (
                                 <div>
                                     Enter Owner Name:<br />
-                                    <input type="text" placeholder="Enter Owner Name" style={{ width: "50%" }} maxLength={27} onChange={(e) => setEnterOwnerName({ ...enterOwnerName, ownername: e.target.value })} value={enterOwnerName.ownername} /><br /><br />
+                                    <input type="text" placeholder="Enter Owner Name" style={{ width: "50%" }} maxLength={50} onChange={(e) => setEnterOwnerName({ ...enterOwnerName, ownername: e.target.value })} value={enterOwnerName.ownername} /><br /><br />
                                     {enterOwnerName.ownername !== null && enterOwnerName.ownername !== undefined && enterOwnerName.ownername !== '' ? (
                                         <span><div id="itempage-sendmessage" onClick={() => {
                                             axios.post(`${hostname}/items/markfound`, {
