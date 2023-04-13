@@ -85,7 +85,7 @@ function Home() {
   })
 
   useEffect(() => {
-    axios.get(`${hostname}/items`, {
+    axios.get(`${hostname}/items?tag=${sorts.tag}&status=${sorts.status}`, {
       'headers': {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -115,10 +115,10 @@ function Home() {
 
         <span>
           Tags:
-          <select onChange={(e) => {
-              setSorts({ ...sorts, tag: e.target.value })
-              setLostItems([])
-              axios.get(`${hostname}/items?tag=${sorts.tag}&status=${sorts.status}`, {
+          <select value={sorts.tag} onChange={async (e) => {
+              await setSorts({ ...sorts, tag: e.target.value })
+              await setLostItems([])
+              await axios.get(`${hostname}/items?tag=${e.target.value}&status=${sorts.status}`, {
                 'headers': {
                   'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
@@ -144,10 +144,10 @@ function Home() {
 
         <span>
           Status:
-          <select onChange={(e) => {
-              setSorts({ ...sorts, status: e.target.value })
-              setLostItems([])
-              axios.get(`${hostname}/items?tag=${sorts.tag}&status=${sorts.status}`, {
+          <select value={sorts.status} onChange={async (e) => {
+              await setSorts({ ...sorts, status: e.target.value })
+              await setLostItems([])
+              await axios.get(`${hostname}/items?tag=${sorts.tag}&status=${e.target.value}`, {
                 'headers': {
                   'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
@@ -185,9 +185,10 @@ function Home() {
             <span>
               <span>
                 Tags:
-                <select onChange={(e) => {
-                  setSorts({ ...sorts, tag: e.target.value })
-                  axios.get(`${hostname}/items?tag=${sorts.tag}&status=All`, {
+                <select value={sorts.tag} onChange={async (e) => {
+                  await setSorts({ ...sorts, tag: e.target.value })
+                  await setLostItems([])
+                  await axios.get(`${hostname}/items?tag=${e.target.value}&status=All`, {
                     'headers': {
                       'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
