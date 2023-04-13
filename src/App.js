@@ -161,8 +161,8 @@ function Home() {
                 })
             }}>
             <option value="All">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Claimed">Claimed and Donated to Charity</option>
+            <option value="pending">Pending</option>
+            <option value="approved_founded">Claimed and Donated to Charity</option>
           </select>
         </span><br />
         <br />
