@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import './auditlog.css'
+import { saveAs } from 'file-saver'
 
 function AuditLogPage(props) {
 
@@ -26,7 +27,15 @@ function AuditLogPage(props) {
     }
 
     function ExportCSV() {
-        
+        axios.get(`${process.env.REACT_APP_HOSTNAME}/audit/csv`, {
+            responseType: 'blob',
+            headers: {
+                Accept: "application/vnd.ms-excel",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        }).then((response) => {
+            saveAs(response.data, 'ilost_audit-' + new Date().toJSON() + '.csv');
+        });
     }
 
     return (
