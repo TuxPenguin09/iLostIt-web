@@ -17,7 +17,7 @@ function gridsoflost(lostItems) {
   function itemFront(item) {
     return (
       <div id="itemlostlists-item" style={{
-        backgroundColor: item.status === "pending" ? "rgb(255 255 182)" : null
+        backgroundColor: item.status === "pending" ? "rgb(255 255 182)" : item.founded ? "rgb(134 255 119)" : null
       }} key={item.id}>
         <Link to={`/item/${item.id}`}>
           <img id="itemlostlists-item-image" alt="Lost Item" src={`${hostname}/cdn/image?img=${item.image}`} />
