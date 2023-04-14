@@ -10,6 +10,7 @@ import AddItemPage from './misc/additem'
 import ItemByUserPage from './page/ItemAddedByUser'
 import AuditLogPage from './misc/auditlog';
 import { MessagesPage, DirectMessagePage } from './page/messages'
+import SuperAdminPage from './admin'
 
 const hostname = process.env.REACT_APP_HOSTNAME;
 
@@ -60,6 +61,7 @@ function App() {
           <Route path="/log" element={<AuditLogPage />} />
           <Route path="/messages" element={<MessagesPage />} />
           <Route path="/messages/:item/:user" element={<DirectMessagePage />} />
+          <Route path="/admin" element={<SuperAdminPage />} />
         </Routes>
       </BrowserRouter>
     </div>
