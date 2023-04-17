@@ -81,6 +81,8 @@ function Home() {
 
   ]);
 
+  const [TotalItems, setTotalItems] = useState([])
+
   const [sorts, setSorts] = useState({
     tag: "All",
     status: "All"
@@ -100,6 +102,15 @@ function Home() {
         setNoPerm(true)
       })
 
+    axios.get(`${hostname}/items/countitems`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+    .then(res => {
+      setTotalItems(res.data.tags)
+    })
+
     if (localStorage.getItem('token')) {
       axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
         .then((res) => {
@@ -118,21 +129,21 @@ function Home() {
         <span>
           Tags:
           <select value={sorts.tag} onChange={async (e) => {
-              await setSorts({ ...sorts, tag: e.target.value })
-              await setLostItems([])
-              await axios.get(`${hostname}/items?tag=${e.target.value}&status=${sorts.status}`, {
-                'headers': {
-                  'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
+            await setSorts({ ...sorts, tag: e.target.value })
+            await setLostItems([])
+            await axios.get(`${hostname}/items?tag=${e.target.value}&status=${sorts.status}`, {
+              'headers': {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+              }
+            })
+              .then(res => {
+                console.log(res.data)
+                setLostItems(res.data)
               })
-                .then(res => {
-                  console.log(res.data)
-                  setLostItems(res.data)
-                })
-                .catch(err => {
-                  setNoPerm(true)
-                })
-            }}>
+              .catch(err => {
+                setNoPerm(true)
+              })
+          }}>
             <option value="All">All</option>
             <option value="Electronics">Electronics</option>
             <option value="Books and Notebooks">Books and Notebooks</option>
@@ -141,27 +152,35 @@ function Home() {
             <option value="Instruments">Instruments</option>
             <option value="Other">Other</option>
           </select>
+          <div>
+            Total Approved Items by Tags:<br />
+            - Electronics: {TotalItems.Electronics}<br />
+            - Books And Notebooks: {TotalItems["Books and Notebooks"]}<br />
+            - Clothing: {TotalItems["Clothing"]}<br />
+            - Writing Materials: {TotalItems["Writing Materials"]}<br />
+            - Instruments: {TotalItems["Instruments"]}<br />
+            - Others: {TotalItems["Other"]}<br />
+          </div>
         </span><br />
-        <br />
 
         <span>
           Status:
           <select value={sorts.status} onChange={async (e) => {
-              await setSorts({ ...sorts, status: e.target.value })
-              await setLostItems([])
-              await axios.get(`${hostname}/items?tag=${sorts.tag}&status=${e.target.value}`, {
-                'headers': {
-                  'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
+            await setSorts({ ...sorts, status: e.target.value })
+            await setLostItems([])
+            await axios.get(`${hostname}/items?tag=${sorts.tag}&status=${e.target.value}`, {
+              'headers': {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+              }
+            })
+              .then(res => {
+                console.log(res.data)
+                setLostItems(res.data)
               })
-                .then(res => {
-                  console.log(res.data)
-                  setLostItems(res.data)
-                })
-                .catch(err => {
-                  setNoPerm(true)
-                })
-            }}>
+              .catch(err => {
+                setNoPerm(true)
+              })
+          }}>
             <option value="All">All</option>
             <option value="pending">Pending</option>
             <option value="approved_founded">Claimed and Donated to Charity</option>
