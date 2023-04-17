@@ -18,6 +18,13 @@ function SuperAdminPage(props) {
         disabled: false,
     })
 
+    const [changePassword, setChangePassword] = useState({
+        oldpassword: '',
+        newpassword: '',
+        confirmpassword: '',
+        submitting: false
+    })
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
@@ -80,9 +87,42 @@ function SuperAdminPage(props) {
         }
     }
 
+    function ChangePassword() {
+        if (changePassword.newpassword === changePassword.confirmpassword) {
+            setChangePassword({...changePassword, submitting: true})
+            axios.post(`${hostname}/accounts/changepassword/admin`, {
+                oldpwd: changePassword.oldpassword,
+                newpassword: changePassword.newpassword
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            .then(res => {
+                setChangePassword({...changePassword, submitting: false, oldpassword: '', newpassword: '', confirmpassword: ''})
+            })
+            .catch(err => {
+                setChangePassword({...changePassword, submitting: false})
+            })
+        }
+    }
+
     return (
         <div className='AuditLogWindow'>
             <h2>Super Admin Panel</h2>
+            <div>
+                <h3>Change Password</h3>
+                Old Password:
+                <input type="text" placeholder="Old Password" disabled={changePassword.submitting} onChange={(e) => {setChangePassword({...changePassword, oldpassword: e.target.value})}} value={changePassword.oldpassword} /><br />
+                <br />
+                New Password:
+                <input type="text" placeholder="New Password" disabled={changePassword.submitting} onChange={(e) => {setChangePassword({...changePassword, newpassword: e.target.value})}} value={changePassword.newpassword} /><br />
+                <br />
+                Confirm Password:
+                <input type="text" placeholder="Confirm Password" disabled={changePassword.submitting} onChange={(e) => {setChangePassword({...changePassword, confirmpassword: e.target.value})}} value={changePassword.confirmpassword} /><br />
+                <br />
+                {changePassword.submitting ? null : <div id="additem-button" onClick={() => {ChangePassword()}}>Change Password</div>}
+            </div>
             <h3>Admin Credentials</h3>
             {addAdmin ? (<div>
                 Provide their username:
