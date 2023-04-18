@@ -46,9 +46,9 @@ function AddItem(props) {
                 }}>
                     <option value="Other">Other</option>
                     <option value="Electronics">Electronics</option>
-                    <option value="Books and Notebooks">Books and Notebooks</option>
+                    <option value="Books_and_Notebooks">Books and Notebooks</option>
                     <option value="Clothing">Clothing</option>
-                    <option value="Writing Materials">Writing Materials</option>
+                    <option value="Writing_Materials">Writing Materials</option>
                     <option value="Instruments">Instruments</option>
                 </select>
             </p>
