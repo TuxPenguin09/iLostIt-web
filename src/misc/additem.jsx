@@ -53,7 +53,7 @@ function AddItem(props) {
                 </select>
             </p>
             <br />
-            {item.processing ? (null) : (<div id="additem-button" onClick={() => AddItemRequest()}>Add Lost Item</div>)}
+            {item.processing ? (null) : (item.image !== "" && item.name !== "" ? (<div id="additem-button" onClick={() => AddItemRequest()}>Add Lost Item</div>) : (null))}
         </div>
     )
 }
