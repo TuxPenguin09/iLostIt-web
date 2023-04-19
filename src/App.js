@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import Header from './misc/header';
 import axios from 'axios';
+import { saveAs } from 'file-saver'
 
 import ItemPage from './page/item';
 import RegisterPage from './page/register'
@@ -240,7 +241,57 @@ function Home() {
           ]
         }} />
         <br />
+        {sorts.status === "All" ? (
+          <div id="additem-button" onClick={() => {
+            axios.get(`${process.env.REACT_APP_HOSTNAME}/items/csv`, {
+              responseType: 'blob',
+              headers: {
+                  Accept: "application/vnd.ms-excel",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+          }).then((response) => {
+              saveAs(response.data, 'ilost_items-' + new Date().toJSON() + '.csv');
+          });
+          }}>Export Items as CSV</div>
+        ) : sorts.status === "approved" ? (
+          <div id="additem-button" onClick={() => {
+            axios.get(`${process.env.REACT_APP_HOSTNAME}/items/csv/approved`, {
+              responseType: 'blob',
+              headers: {
+                  Accept: "application/vnd.ms-excel",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+          }).then((response) => {
+              saveAs(response.data, 'ilost_items_approved-' + new Date().toJSON() + '.csv');
+          });
+          }}>Export Approved Items as CSV</div>
+        ) : sorts.status === "pending" ? (
+          <div id="additem-button" onClick={() => {
+            axios.get(`${process.env.REACT_APP_HOSTNAME}/items/csv/pending`, {
+              responseType: 'blob',
+              headers: {
+                  Accept: "application/vnd.ms-excel",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+          }).then((response) => {
+              saveAs(response.data, 'ilost_items_pending-' + new Date().toJSON() + '.csv');
+          });
+          }}>Export Pending Items as CSV</div>
+        ) : sorts.status === "approved_founded" ? (
+          <div id="additem-button" onClick={() => {
+            axios.get(`${process.env.REACT_APP_HOSTNAME}/items/csv/founded`, {
+              responseType: 'blob',
+              headers: {
+                  Accept: "application/vnd.ms-excel",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+          }).then((response) => {
+              saveAs(response.data, 'ilost_items_founded-' + new Date().toJSON() + '.csv');
+          });
+          }}>Export Founded Items as CSV</div>
+        ) : null}
         <br />
+        
 
         {gridsoflost(lostItems)}
       </div>
