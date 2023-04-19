@@ -12,7 +12,11 @@ import AuditLogPage from './misc/auditlog';
 import { MessagesPage, DirectMessagePage } from './page/messages'
 import SuperAdminPage from './admin'
 
+import Chart from 'chart.js/auto';
+import { Bar } from 'react-chartjs-2';
+
 const hostname = process.env.REACT_APP_HOSTNAME;
+Chart.defaults.color = '#FFFFFF';
 
 function gridsoflost(lostItems) {
   function itemFront(item) {
@@ -107,9 +111,9 @@ function Home() {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
-    .then(res => {
-      setTotalItems(res.data.tags)
-    })
+      .then(res => {
+        setTotalItems(res.data.tags)
+      })
 
     if (localStorage.getItem('token')) {
       axios.get(`${hostname}/accounts/me?token=${localStorage.getItem('token')}`)
@@ -121,6 +125,16 @@ function Home() {
   }, [])
 
   function AdminView() {
+
+    const dataitems = [
+      { tag: "Electronics", count: parseInt(TotalItems["Electronics"]) },
+      { tag: "Books and Notebooks", count: parseInt(TotalItems["Books and Notebooks"]) },
+      { tag: "Clothing", count: parseInt(TotalItems["Clothing"]) },
+      { tag: "Writing Materials", count: parseInt(TotalItems["Writing Materials"]) },
+      { tag: "Instruments", count: parseInt(TotalItems["Instruments"]) },
+      { tag: "Others", count: parseInt(TotalItems["Other"]) },
+    ];
+
     return (
       <div>
         <h2>Dashboard</h2>
@@ -152,15 +166,6 @@ function Home() {
             <option value="Instruments">Instruments</option>
             <option value="Other">Other</option>
           </select>
-          <div>
-            Total Approved Items by Tags:<br />
-            - Electronics: {TotalItems.Electronics}<br />
-            - Books And Notebooks: {TotalItems["Books and Notebooks"]}<br />
-            - Clothing: {TotalItems["Clothing"]}<br />
-            - Writing Materials: {TotalItems["Writing Materials"]}<br />
-            - Instruments: {TotalItems["Instruments"]}<br />
-            - Others: {TotalItems["Other"]}<br />
-          </div>
         </span><br />
 
         <span>
@@ -187,6 +192,54 @@ function Home() {
             <option value="approved_founded">Claimed and Donated to Charity</option>
           </select>
         </span><br />
+        <br />
+
+        <h3>Charts</h3>
+        <div>
+          Total Items by Tags:<br />
+          - Electronics: {TotalItems.Electronics}<br />
+          - Books And Notebooks: {TotalItems["Books and Notebooks"]}<br />
+          - Clothing: {TotalItems["Clothing"]}<br />
+          - Writing Materials: {TotalItems["Writing Materials"]}<br />
+          - Instruments: {TotalItems["Instruments"]}<br />
+          - Others: {TotalItems["Other"]}<br />
+        </div>
+
+        <Bar options={{
+          responsive: true,
+          aspectRatio: 28/9,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: false,
+            },
+          },
+          scales: {
+            yAxes: {
+              scaleLabel: {
+                display: true,
+                fontColor: 'white',
+                fontSize: 25,
+                labelString: 'Item2',
+              },
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          },
+        }} data={{
+          labels: Object.keys(dataitems).map(key => dataitems[key].tag),
+          datasets: [
+            {
+              label: 'Item',
+              data: Object.keys(dataitems).map(key => dataitems[key].count),
+              backgroundColor: 'rgba(54, 162, 255, 0.5)',
+            }
+          ]
+        }} />
+        <br />
         <br />
 
         {gridsoflost(lostItems)}
