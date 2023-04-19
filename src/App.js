@@ -204,6 +204,7 @@ function Home() {
           - Writing Materials: {TotalItems["Writing Materials"]}<br />
           - Instruments: {TotalItems["Instruments"]}<br />
           - Others: {TotalItems["Other"]}<br />
+          - Total Items: {TotalItems["Total"]}<br />
         </div>
 
         <Bar options={{
